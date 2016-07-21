@@ -1,5 +1,5 @@
 <?php
-$title = '主页';
+//$title = '主页';
 require_once(dirname(__FILE__)."/head.php");
 
 echo <<<END

@@ -2,11 +2,11 @@
 class MainController extends Controller{
 	function __construct () {
 		parent::__construct("site"); //继承其父类的构造函数
-		echo "MainController";
+		//echo "MainController";
 	}
 	public function actionIndex(){
-		//return $this->render('index', array());
-		echo "main/index";
+		return $this->render('index', array('title'=>"主页"));
+		//echo "main/index";
 	}
 	public function actionLogin(){
 		if(isset($_POST['name'])){

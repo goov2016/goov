@@ -11,18 +11,18 @@
     <title><?php echo $title?></title>
 
     <!-- Bootstrap core CSS -->
-    <link href="/joyhr/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <link href="/bootstrap/css/bootstrap.min.css" rel="stylesheet">
 
     <!-- Custom styles for this template -->
-    <link href="/joyhr/css/navbar.css" rel="stylesheet">
+    <link href="/css/navbar.css" rel="stylesheet">
     
-    <link href="/joyhr/css/offcanvas.css" rel="stylesheet">
+    <link href="/css/offcanvas.css" rel="stylesheet">
     
-     <link href="/joyhr/css/bootstrap-datetimepicker.min.css" rel="stylesheet" media="screen">
+     <link href="/css/bootstrap-datetimepicker.min.css" rel="stylesheet" media="screen">
 
     <!-- Just for debugging purposes. Don't actually copy these 2 lines! -->
     <!--[if lt IE 9]><script src="../../assets/js/ie8-responsive-file-warning.js"></script><![endif]-->
-    <script src="/joyhr/js/ie-emulation-modes-warning.js"></script>
+    <script src="/js/ie-emulation-modes-warning.js"></script>
 
     <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
     <!--[if lt IE 9]>
@@ -51,9 +51,9 @@
           </div>
           <div id="navbar" class="navbar-collapse collapse">
             <ul class="nav navbar-nav">
-              <li <?php if($title=='主页'){ echo ' class="active"';} ?>><a href="index.php?ctr=comm&act=index">Home</a></li>
-              <li <?php if($title=='组织结构'){ echo ' class="active"';} ?>><a href="index.php?ctr=org&act=index">组织结构</a></li>
-              <li <?php if($title=='员工管理'){ echo ' class="active"';} ?>><a href="index.php?ctr=user&act=index">员工管理</a></li>
+              <li <?php if($title=='主页'){ echo ' class="active"';} ?>><a href="/comm/index">Home</a></li>
+              <li <?php if($title=='组织结构'){ echo ' class="active"';} ?>><a href="/org/index">组织结构</a></li>
+              <li <?php if($title=='员工管理'){ echo ' class="active"';} ?>><a href="/user/index">员工管理</a></li>
               <li <?php if($title=='工资管理'){ echo ' class="active"';} ?>><a href="#">工资管理</a></li>
               <!-- <li class="dropdown">
                 <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">员工管理 <span class="caret"></span></a>

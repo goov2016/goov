@@ -10,11 +10,11 @@ class MysqlUtil {
     protected $cache_mark = true;               //缓存标记  
 
 
-    protected $dbhost = "127.0.0.1";
-    protected $dbuser = "root";
-    protected $dbpass = "soso";
-    protected $dbname = "goov";
-    protected $dbport = 3306;
+    // protected $dbhost = "127.0.0.1";
+    // protected $dbuser = "root";
+    // protected $dbpass = "soso";
+    // protected $dbname = "goov";
+    // protected $dbport = 3306;
 
      /** 
      * Description:（1）静态变量，保存全局实例，跟类绑定，跟对象无关 
@@ -25,7 +25,7 @@ class MysqlUtil {
   
     //构造函数：主要用来返回一个mysqli对象  
     private  function  __construct() {  
-        $this->mysqli = new mysqli($this->dbhost, $this->dbuser, $this->dbpass, $this->dbname, $this->dbport);  
+        $this->mysqli = new mysqli(DB_HOST, DB_USER, DB_PASS, DB_NAME, DB_PORT);  
         if(mysqli_connect_errno()) {  
             $this->mysqli = false;  
             echo '<h2>'.mysqli_connect_error().'</h2>';  

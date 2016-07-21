@@ -19,6 +19,8 @@ define("DEFAULT_ACTION","index");
 
 define("TEMPLATE_ROOT",dirname(__FILE__)."/../views");
 
+define("URL_ROOT",dirname(__FILE__)."/");
+
 
 
 
@@ -26,7 +28,10 @@ define("TEMPLATE_ROOT",dirname(__FILE__)."/../views");
 
 #mysql setting
 define("DB_DNS","mysql:host=localhost;dbname=test");
+define("DB_HOST","localhost");
+define("DB_NAME","goov");
 define("DB_USER","root");
-define("DB_PASS","");
+define("DB_PASS","soso");
+define("DB_PORT","3306");
 define("DB_CHARSET","utf8");
 ?>

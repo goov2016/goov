@@ -1,7 +1,7 @@
 <?php
 /**
  * Date: 2015年12月4日
- * Author: Awei.tian
+ * Author: lis
  * Description: 
  */
 class UserController extends Controller{
