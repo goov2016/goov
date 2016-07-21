@@ -8,9 +8,23 @@ class UserController extends Controller{
 	function __construct () {
 		parent::__construct(""); //继承其父类的构造函数
 	}
+	public function actionLogin(){
+		$result = array('actionstatus' => "ok", 'errorcode'=>0,'errorinfo'=>'');
+		$obj = json_decode(file_get_contents("php://input"));
+		if(isset($obj->telphone)){
+			$dbrs = MysqlUtil::GetInstance()->get_row("select * from t_user where telphone=".$obj->telphone.' and pwd='.$obj->pwd);
+			if(!isset($dbrs)){
+				$result['actionstatus'] = "error";
+            	$result['errorinfo'] = "no result";
+			}
+			
+		}
+		echo json_encode($result) ;
+		die();
+	}
 	public function actionReg(){
 	
-
+        $result = array('actionstatus' => "ok", 'errorcode'=>0,'errorinfo'=>'');
 	    $obj = json_decode(file_get_contents("php://input"));
 		if(isset($obj->telphone)){
 			//$model = new OrgModel();
@@ -18,21 +32,10 @@ class UserController extends Controller{
 			$telphone = $obj->telphone;
 			$pwd = $obj->pwd;
 			$validcode = $obj->validcode;
-			// $model->email =  $_POST['email'];
-			// $model->telphone = $_POST['telphone'];
-			// $model->pcode = $_POST['pcode'];
-			// $model->sex = $_POST['sex'];
-			// $model->job = $_POST['job'];
-			// $model->education = $_POST['education'];
-			// $model->birthday = $_POST['birthday'];
-			// $model->joindate = $_POST['joindate'];
+
 			$param=array("telphone"=>$telphone ,"pwd"=>$validcode);
 		
-		    $result = array('actionstatus' => "ok", 'errorcode'=>0,'errorinfo'=>'');
-		
-
 			$sql = MysqlUtil::GetInstance()->get_insert_db_sql("t_user",$param);
-			//echo $sql;
 
 			$dbrs = MysqlUtil::GetInstance()->exec($sql);
 
@@ -40,28 +43,15 @@ class UserController extends Controller{
             	$result['actionstatus'] = "error";
             	$result['errorinfo'] = $dbrs['errorinfo'];
             }
-			//exit();
-
-			// if($dbresult>0){
-			// 	$result
-			// }
-
-
-			echo json_encode($result) ;
-			
-			// if($mysql->insert("user_info", $_POST))
-			// {
-			// 	echo "<script>alert('ok');</script>";
-			// }
-			
-			// header("Location: /joyhr/index.php?ctr=user&act=index");
-			exit();
-			//return $this->render('index', array());
+	
 		}else{
-			return $this->render('creat', array('model'=>$model));
+
+			$result['actionstatus'] = "error";
+            $result['errorinfo'] = '参数有误';
+			
 		}
 
-
-		echo "api/user/reg";
+        echo json_encode($result);
+		die();
 	}
 }
