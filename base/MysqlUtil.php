@@ -54,6 +54,18 @@ class MysqlUtil {
         }  
         return self::$instance;  
     }  
+
+    public function autocommit($bool){
+         $this->mysqli->autocommit($bool);
+    }
+
+    public function rollback(){
+         $this->mysqli->rollback();
+    }
+
+     public function commit(){
+         $this->mysqli->commit();
+    }
        
   
     //缓存类对象：文件缓存、memcache键值对缓存  
@@ -106,6 +118,30 @@ class MysqlUtil {
     //获取查询次数  
     public function query_num() {  
         return $this->query_num;  
+    } 
+
+         //执行sql语句查询  
+    public function execwithtran($sqlarr, $limit = null) {  
+       if(is_array($sqlarr)&&!empty($sqlarr))  
+        {  
+            $this->mysqli->autocommit(false); // 开始事务
+            foreach( $sqlarr as $sql )  
+            {  
+                $sql    = $this->get_query_sql($sql, $limit);  
+                $this->sql[]    = $sql;  
+                $this->rs    = $this->mysqli->query($sql);  
+                if (!$this->rs) {   
+                    $result = array('rs' => $this->rs, 'errorcode'=>0,'errorinfo'=>$this->mysqli->error.'[--sql:'.$sql.'--]');
+                    $this->mysqli->rollback();
+                    return $result;
+                } else {  
+                    $this->query_num++;   
+                    $result = array('rs' => $this->rs, 'errorcode'=>0,'errorinfo'=>'');
+                    return $result;
+                } 
+            }
+            $this->mysqli->commit();
+        }
     }  
 
       //执行sql语句查询  

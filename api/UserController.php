@@ -9,6 +9,8 @@ class UserController extends Controller{
 		parent::__construct(""); //继承其父类的构造函数
 	}
 	public function actionLogin(){
+		//echo date("d",strtotime("now"))/2;
+
 		$result = array('actionstatus' => "ok", 'errorcode'=>0,'errorinfo'=>'');
 		$obj = json_decode(file_get_contents("php://input"));
 		if(isset($obj->telphone)){
@@ -16,10 +18,18 @@ class UserController extends Controller{
 			if(!isset($dbrs)){
 				$result['actionstatus'] = "error";
             	$result['errorinfo'] = "no result";
+			}else{
+				$result['data'] = $dbrs;
+
+                $tokendate = date("Ym",strtotime("now")).floor(date("d",strtotime("now"))/16).'@goov$'; //15天过期
+
+                $result['token'] = md5($obj->telphone.$tokendate);
+				
 			}
 			
+			
 		}
-		echo json_encode($result) ;
+		echo json_encode($result,JSON_UNESCAPED_UNICODE) ;
 		die();
 	}
 	public function actionReg(){
@@ -33,7 +43,7 @@ class UserController extends Controller{
 			$pwd = $obj->pwd;
 			$validcode = $obj->validcode;
 
-			$param=array("telphone"=>$telphone ,"pwd"=>$validcode);
+			$param=array("telphone"=>$telphone ,"pwd"=>$pwd,"roleid"=>1);
 		
 			$sql = MysqlUtil::GetInstance()->get_insert_db_sql("t_user",$param);
 
@@ -51,7 +61,29 @@ class UserController extends Controller{
 			
 		}
 
-        echo json_encode($result);
+        echo json_encode($result,JSON_UNESCAPED_UNICODE);
 		die();
 	}
+
+
+	public function actionUserExt(){
+
+		$result = array('actionstatus' => "ok", 'errorcode'=>0,'errorinfo'=>'');
+	    $obj = json_decode(file_get_contents("php://input"));
+		if(isset($obj->uid)){
+            $uid = $obj->uid;
+            $sql = "select * from v_userext where uid = ".$uid." order by enterdate desc ";//limit 1
+            $dbrs = MysqlUtil::GetInstance()->get_all($sql);
+            $result['data'] = $dbrs;
+		}else{
+
+			$result['actionstatus'] = "error";
+            $result['errorinfo'] = '参数有误';
+			
+		}
+
+
+        echo json_encode($result,JSON_UNESCAPED_UNICODE);
+		die();
+    }
 }

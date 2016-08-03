@@ -72,4 +72,16 @@ class Application{
 		}
 		return $ip;
 	}
+
+
+	public static function tokenValid($telphone, $token){
+		$tokendate = date("Ym",strtotime("now")).floor(date("d",strtotime("now"))/16); //15天过期
+		$validtoken = md5($telphone.$tokendate);
+
+		if($validtoken === $token){
+			return true;
+		}else{
+			return fasle;
+		}
+	}
 }
